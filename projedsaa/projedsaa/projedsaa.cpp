@@ -39,7 +39,7 @@ int main(){
 
 	high_resolution_clock::time_point time1 = high_resolution_clock::now(); // This is used for taking the time
 	   
-		while (getline(log, line)) {         // This while loop is used to put the values to the unordered maps deneme boşluk aosşfhakhfashofsa
+		while (getline(log, line)) {         // This while loop is used to put the values to the unordered maps 
 			checkS = RSN(line);
 			STK[checkS]++;
 			KTS[STK[checkS]].push_back(checkS);
