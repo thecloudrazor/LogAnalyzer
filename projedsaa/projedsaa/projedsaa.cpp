@@ -24,16 +24,16 @@ int main(){
 
 	ifstream log("access_log.txt");          // This is our way to open the text file [line 42]
 
-	string check                             // "check" is to get site names (it's been made equal to a value since it is utilized multiple times by the program) [line 43 to 45]
+	string checkS                             // "checkS" is to get site names (it's been made equal to a value since it is utilized multiple times by the program) [line 43 to 45]
 		  ,line;                             // "line" is to get the lines of the text file [line 42 and 43]
 
 	unordered_map<string, int> STK;           // STK = string to keyvalue / this is used to store the amount of visits and names of each site [line 43]
 	unordered_map<int , vector<string> > KTS; // KTS = keyvalue to string / this is used to order the values 
 
-	int xc =0                                 // "xc" is used to find the biggest value, only print out 10 numbers (the break condition) [line 48 to 82] 
-	   ,kc=0								  // "kc" is used to check all values in our map [line 48 to 82]
-	   ,x=0                                   // "x" is used to ensure checking is not done than more times the amount of lines in our text file (less than 10 sites) [line 45,49,80]
-	   ,a=0;                                  // "a" is used to ensure that the same site names are not printed, since all names are stored from 1 to n for each site [line 59,63,71]
+	int tenCounter=0                          // "tenCounter" is used to find the biggest value, only print out 10 numbers (the break condition) [line 48 to 82] 
+	   ,counter=0							  // "counter" is used to check all values in our map [line 48 to 82]
+	   ,checkI=0                              // "checkI" is used to ensure checking is not done than more times the amount of lines in our text file (less than 10 sites) [line 45,49,80]
+	   ,ensurer=0;                                  // "ensurer" is used to ensure that the same site names are not printed, since all names are stored from 1 to n for each site [line 59,63,71]
 
 	string checkA[10];                        // This array is used to ensure that the same site names are not printed, since all names are stored from 1 to n for each site [line 57 and 66]
 
@@ -43,42 +43,42 @@ int main(){
 			check = RSN(line);
 			STK[check]++;
 			KTS[STK[check]].push_back(check);
-			x++;
+			checkI++;
 	    }                                     
 		
 		while (1) {                           // This while loop is used to print top 10 visited sites
-			if (kc == x ) {					 
+			if (counter == checkI ) {					 
 				std::cout << "theres less than 10 sites"<<endl;
 				break;
 			}
-			else if  (KTS[kc + 1].size() == xc) { 
+			else if  (KTS[counter + 1].size() == tenCounter) { 
 
 				for (int i = 0; i <= 10; i++) {  
 					for (int j = 0; j < 10; j++) {
-						if (KTS[kc][i] == checkA[j])
+						if (KTS[counter][i] == checkA[j])
 						{
-							a++;
+							ensurer++;
 						}
 					}
 
-					if(a==0)
+					if(ensurer==0)
 					{
-						std::cout << KTS[kc][i] << " " << kc << " of total visits" << endl;
-						checkA[xc]= KTS[kc][i];
-						xc++;
-						kc = 0;
+						std::cout << KTS[counter][i] << " " << counter << " of total visits" << endl;
+						checkA[tenCounter]= KTS[counter][i];
+						tenCounter++;
+						counter = 0;
 						break;
 					}
-					a = 0;
+					ensurer = 0;
 				}
 
 				
 			}
 			
-			kc++;
-			if (xc == 10)
+			counter++;
+			if (tenCounter == 10)
 			break;
-			x++;
+			x++; // remove that later
 			
 		}
 		
