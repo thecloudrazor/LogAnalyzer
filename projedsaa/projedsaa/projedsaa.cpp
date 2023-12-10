@@ -78,7 +78,6 @@ int main(){
 			counter++;
 			if (tenCounter == 10)
 			break;
-			x++; // remove that later
 			
 		}
 		
