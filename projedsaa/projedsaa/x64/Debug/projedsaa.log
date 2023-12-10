@@ -1,5 +1,4 @@
 ﻿  projedsaa.cpp
-C:\Users\Demir\Documents\GitHub\LogAnalyzer\projedsaa\projedsaa\projedsaa.cpp(15,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Demir\Documents\GitHub\LogAnalyzer\projedsaa\projedsaa\projedsaa.cpp(16,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  LINK : C:\Users\Demir\Documents\GitHub\LogAnalyzer\projedsaa\x64\Debug\projedsaa.exe not found or not built by the last incremental link; performing full link
-  projedsaa.vcxproj -> C:\Users\Demir\Documents\GitHub\LogAnalyzer\projedsaa\x64\Debug\projedsaa.exe
+D:\visualstudiocodes\projedsaa\projedsaa\projedsaa.cpp(15,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\visualstudiocodes\projedsaa\projedsaa\projedsaa.cpp(16,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  projedsaa.vcxproj -> D:\visualstudiocodes\projedsaa\x64\Debug\projedsaa.exe
