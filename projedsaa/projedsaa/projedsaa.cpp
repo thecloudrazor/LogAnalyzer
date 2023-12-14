@@ -22,7 +22,7 @@ string RSN(string linex) { // RSN = read and return site names
 
 int main(){
 
-	ifstream log("access_log.txt");          // This is our way to open the text file [line 42]
+	ifstream log("access_log");          // This is our way to open the text file [line 42]
 
 	string checkS                            // "checkS" is to get site names (it's been made equal to a value since it is utilized multiple times by the program) [line 43 to 45]
 		  ,line;                             // "line" is to get the lines of the text file [line 42 and 43]
