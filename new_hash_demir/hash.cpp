@@ -11,7 +11,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const static int array_size = 30000; // eğer bunun çözümünü bulursak sorun yok bu sayıyı sallama giriyorum
+const static int array_size = 14000; // eğer bunun çözümünü bulursak sorun yok bu sayıyı sallama giriyorum
 
 hashT::hashT() : logfile("access_log") { // constructor
 	HTable = new pair<string, int>[array_size];
@@ -61,7 +61,7 @@ void hashT::insert() {
 		return a.second > b.second; // Sort in descending order
 	});
 	cout << "Top 10 elements:" << endl;
-	for (int i = 0; i < min(10, array_size); i++) {
+	for (int i = 0; i < 10; i++) {
 		cout << "String: " << HTable[i].first << ", Count: " << HTable[i].second << endl;
 	}
 
