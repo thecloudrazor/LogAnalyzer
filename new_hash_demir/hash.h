@@ -10,7 +10,9 @@
 
 using namespace std;
 
-class hashT{
+int array_size = 14009; // eğer bunun çözümünü bulursak sorun yok bu sayıyı sallama giriyorum
+
+class hashT {
 public:
 	hashT();
 	int quadProb(size_t originalIndex, int i);
@@ -19,19 +21,17 @@ public:
 	void insert();
 	void printTopTen();
 	~hashT();
+	
 private:
-	pair<string, int>* HTable; //pointer to the hash table
+	vector<pair<string, int>> HTable; //pointer to the hash table
 	ifstream logfile;
 };
 
-int array_size = 14000; // eğer bunun çözümünü bulursak sorun yok bu sayıyı sallama giriyorum
-
-hashT::~hashT(){
-	delete []HTable;
+hashT::~hashT() {
 }
 
 hashT::hashT() : logfile("access_log") { // constructor
-	HTable = new pair<string, int>[array_size];
+	HTable.resize(array_size);
 }
 
 int hashT::FirstHashIndex(const string& logName) { // stringleri ascii kodlarından index'e çeviriyor. loopu gpt den aldım sayıyı değiştirdim
@@ -39,48 +39,48 @@ int hashT::FirstHashIndex(const string& logName) { // stringleri ascii kodların
 	for (char a : logName) { // burdaki 13 sayısı değiştirlebilir. Kodun hızında değişiklik yapıcaktır asal sayı olursa unique değer bulma olasılığı daha fazla olucak 
 		hash = 13 * hash + a; // bu sayede collision daha hızlı engellenicek
 	}
-	return hash % array_size;
+	return hash % HTable.size();
 }
 
 string hashT::read_logs(string linex) { // string return
 	int start, end;
 	start = linex.find("GET ") + 4;
-	end = linex.find(" ", start); 
+	end = linex.find(" ", start);
 	return linex.substr(start, end - start);
 }
 
 int hashT::quadProb(size_t indexX, int probIteration) { // quadratic probing le farklı string aynı index li elemana farklı index veriyor
-	return (indexX + probIteration * probIteration) % array_size;
+	return (indexX + probIteration * probIteration) % HTable.size();
 }
 
-void hashT::insert() { 
+void hashT::insert() {
 	string line;
-	size_t index;
+	int index;
 
 	assert(logfile.is_open());
 
-	while (getline(logfile, line)) {  
-        string pageName = read_logs(line);
-        index = FirstHashIndex(pageName);
-        int probeIteration = 1;  
+	while (getline(logfile, line)) {
+		string pageName = read_logs(line);
+		index = FirstHashIndex(pageName);
+		int probeIteration = 1;
 
-        while (HTable[index].first != pageName && !HTable[index].first.empty()) {  //eğer farklı string aynı index girerse bu o stringe boş olan bir index buluyor
-            index = quadProb(index, probeIteration);
-            probeIteration++;  
-        }
-		if(HTable[index].first != pageName && HTable[index].first.empty()){
-			HTable[index].first = pageName;	
+		while (HTable[index].first != pageName && !HTable[index].first.empty()) {  //eğer farklı string aynı index girerse bu o stringe boş olan bir index buluyor
+			index = quadProb(index, probeIteration);
+			probeIteration++;
 		}
-        HTable[index].second++;
-    }
+		if (HTable[index].first != pageName && HTable[index].first.empty()) {
+			HTable[index].first = pageName;
+		}
+		HTable[index].second++;
+	}
 }
 
- void hashT::printTopTen() { //gpt den aldım değiştirelim yapabiliyorsak
-	sort(HTable, HTable + array_size, [](const auto& a, const auto& b) {
-		return a.second > b.second; // Sort in descending order
-	});
+void hashT::printTopTen() { //gpt den aldım değiştirelim yapabiliyorsak
+	sort(HTable.begin(), HTable.end(), [](pair<string, int>& a, pair<string, int>& b) {
+		return a.second > b.second;
+		});
 	cout << "Top 10 elements:" << endl;
 	for (int i = 0; i < 10; i++) {
 		cout << "String: " << HTable[i].first << " Count: " << HTable[i].second << endl;
 	}
- }
+}

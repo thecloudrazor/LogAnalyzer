@@ -20,6 +20,6 @@ int main() {
     duration<double> time_span = duration_cast<duration<double>>(time2 - time1); 		// This is here to check time
     cout<<endl<< "Total Elapsed Time: " << time_span.count()<<"Seconds"<<endl; 	// This is here to print time
 
-	 return 0;
+	return 0;
 }
 
