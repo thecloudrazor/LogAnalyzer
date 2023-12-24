@@ -42,9 +42,6 @@ void UMap::to_map() {
         string pageName = read_logs(line);
         visitCounts[pageName]++;
     }
-
-    cout << "Unique Items: " << visitCounts.size() << endl; // Remove later, used to know the Hashmap size
-
     logfile.close();
 }
 
@@ -70,5 +67,4 @@ void UMap::print_topten() {    // Print the top 10 most visited pages
 void UMap::one_cycle() {
     to_map();
     transfer_sort();
-    print_topten();
 }
