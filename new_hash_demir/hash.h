@@ -44,7 +44,7 @@ int hashT::FirstHashIndex(const string& logName) { // stringleri ascii kodların
 
 string hashT::read_logs(string linex) { // string return
 	int start, end;
-	start = linex.find("GET ") + 4;
+	start = linex.find("\"GET") + 5;
 	end = linex.find(" ", start);
 	return linex.substr(start, end - start);
 }

@@ -13,8 +13,8 @@ using namespace std::chrono;
 string extractSiteName(string linex) { // RSN = read and return site names
 
 	int start, end;
-	start = linex.find("GET ") + 4;
-	end = linex.find(" HTTP", start);
+	start = linex.find("\"GET") + 5;
+	end = linex.find(" ", start);
 	return linex.substr(start, end - start);
 
 }
