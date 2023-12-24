@@ -9,10 +9,9 @@
 
 using namespace std;
 
-const int array_size = 30013;
-
 class hashT {
 public:
+	hashT(int size);
 	hashT();
 	int quadProb(size_t originalIndex, int i);
 	int FirstHashIndex(const string& logName);
@@ -24,7 +23,18 @@ private:
 	ifstream logfile;
 };
 
-hashT::hashT() : logfile("access_log") { // constructor
+int array_size;
+
+hashT::hashT(int size) : logfile("access_log") { // constructor
+	if(size < 13000){
+		size = 30013;
+	}
+	array_size = size;
+	HTable.resize(array_size);
+}
+
+hashT::hashT() : logfile("access_log") {
+	array_size = 30013;
 	HTable.resize(array_size);
 }
 

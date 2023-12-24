@@ -10,7 +10,7 @@ using namespace std;
 using namespace std::chrono;
 
 int main() {
-	hashT object;
+	hashT object; 
 	high_resolution_clock::time_point time1 = high_resolution_clock::now(); // This is used for taking the time
 	object.insert();
 	object.print();
