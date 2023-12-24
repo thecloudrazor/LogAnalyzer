@@ -12,7 +12,7 @@ string RSN(string linex) { // RSN = read and return site names
 
 	int start, end;
 	start = linex.find("GET") + 4;
-	end = linex.find(" ", start) - 1;
+	end = linex.find(" ", start);
 	return linex.substr(start, end - start);
 }
 
