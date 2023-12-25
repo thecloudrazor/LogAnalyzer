@@ -26,7 +26,7 @@ int main(){
 	unordered_map<string, int> STK;           // STK = string to keyvalue / this is used to store the amount of visits and names of each site [line 43]
 	unordered_map<int , vector<string> > KTS; // KTS = keyvalue to string / this is used to order the values 
 
-	int tenCounter=0                          // "tenCounter" is used to find the biggest value, only print out 10 numbers (the break condition) [line 48 to 82] 
+	long long unsigned int tenCounter=0                          // "tenCounter" is used to find the biggest value, only print out 10 numbers (the break condition) [line 48 to 82] 
 	   ,counter=0							  // "counter" is used to check all values in our map [line 48 to 82]
 	   ,checkI=0                              // "checkI" is used to ensure checking is not done than more times the amount of lines in our text file (less than 10 sites) [line 45,49,80]
 	   ,ensurer=0;                            // "ensurer" is used to ensure that the same site names are not printed, since all names are stored from 1 to n for each site [line 59,63,71]
