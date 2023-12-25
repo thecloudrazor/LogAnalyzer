@@ -55,7 +55,7 @@ void UMap::to_map() {
 
 void UMap::t_print() {
     // Transfer to a vector for sorting
-    for (const pair<string, int>& pair : visitCounts) {
+    for (const pair<string, int> pair : visitCounts) {
         visitVector.emplace_back(pair.second, pair.first);
     }
     // Time Complexity of this std::sort() function is O(Nlog(N)).

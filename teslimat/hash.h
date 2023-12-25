@@ -5,7 +5,7 @@
 #include <vector>
 #include <chrono>
 #include <cassert>
-#include "Umap_h.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -67,7 +67,9 @@ void hashT::insert() {
 	// Variable to hold the file names.
 	string line;
 	// Variables for counting the unique file names and holding the index's of strings.
-	int index, logCount = 0;
+	int index;
+	long long unsigned int logCount = 0;
+	// int logCount = 0;
 	// Assert function to check if logfile opened properly. If not execute program.
 	assert(logfile.is_open());
 
