@@ -10,18 +10,19 @@
 
 using namespace std;
 
-class UMap {  // class for Unordered_Map Solution (Hash map class� a��ld�ktan sonra inherit edilebilir).
+class UMap{  // class for Unordered_Map Solution (Hash map class� a��ld�ktan sonra inherit edilebilir).
 public:
     UMap(); // Definition of default constructor.
     string read_logs(string linex); // Definition of the function that reads the file names from "acces_log.txt". 
     void to_map();
-    void transfer_sort();
+    void t_print();
     void print_topten();
-    void one_cycle();
+    // void one_cycle();
+    unordered_map<string, int> getCount();
 private:
     ifstream logfile; // this will be our access_log
-    unordered_map<string, int> visitCounts; // this will hold the information about which log visited how many times.
     vector<pair<int, string>> visitVector; // this will be the vector to get sorted at the end.
+    unordered_map<string, int> visitCounts; // this will hold the information about which log visited how many times.
 };
 
 UMap::UMap() : logfile("access_log") {} // Implementation of default constructor that assigns the logfile to "access_log.txt" on the object.
@@ -37,7 +38,7 @@ void UMap::to_map() {
     string line;
 
     assert(logfile.is_open());
-
+    
     while (getline(logfile, line)) {
         string pageName = read_logs(line);
         visitCounts[pageName]++;
@@ -45,26 +46,22 @@ void UMap::to_map() {
     logfile.close();
 }
 
-void UMap::transfer_sort() {
+void UMap::t_print() {
     // Transfer to a vector for sorting
     for (const pair<string, int>& pair : visitCounts) {
         visitVector.emplace_back(pair.second, pair.first);
     }
-
     // Sort in descending order of visit count
     sort(visitVector.begin(), visitVector.end(), [](const pair<int, string>& a, const pair<int, string>& b) {
         return a.first > b.first;
-        });
-}
-
-void UMap::print_topten() {    // Print the top 10 most visited pages
-    std::cout << "Top 10 most visited pages:" << std::endl;
+    });
+    cout << "Top 10 most visited pages:" << endl;
     for (int i = 0; i < 10; i++) {
-        std::cout << visitVector[i].second << " was visited " << visitVector[i].first << " times." << std::endl;
+        cout << visitVector[i].second << " was visited " << visitVector[i].first << " times." << endl;
     }
 }
 
-void UMap::one_cycle() {
-    to_map();
-    transfer_sort();
-}
+// void UMap::one_cycle() {
+//     to_map();
+//     t_print();
+// }

@@ -1,50 +1,54 @@
 #pragma once
 #include <iostream>
-#include <unordered_map>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <chrono>
-#include <algorithm>
 #include <cassert>
+#include "Umap_h.h"
 
 using namespace std;
 
-int array_size = 14009; // eğer bunun çözümünü bulursak sorun yok bu sayıyı sallama giriyorum
-
 class hashT {
 public:
+	hashT(int size);
 	hashT();
 	int quadProb(size_t originalIndex, int i);
 	int FirstHashIndex(const string& logName);
 	string read_logs(string linex);
 	void insert();
-	void printTopTen();
-	~hashT();
-	
+	void print();
+	vector<pair<string, int>> HTable;
 private:
-	vector<pair<string, int>> HTable; //pointer to the hash table
 	ifstream logfile;
 };
 
-hashT::~hashT() {
-}
+int array_size;
 
-hashT::hashT() : logfile("access_log") { // constructor
+hashT::hashT(int size) : logfile("access_log") { // constructor
+	if(size < 13000){
+		size = 30013;
+	}
+	array_size = size;
 	HTable.resize(array_size);
 }
 
-int hashT::FirstHashIndex(const string& logName) { // stringleri ascii kodlarından index'e çeviriyor. loopu gpt den aldım sayıyı değiştirdim
+hashT::hashT() : logfile("access_log") {
+	array_size = 30013;
+	HTable.resize(array_size);
+}
+
+int hashT::FirstHashIndex(const string& logName) { 
 	size_t hash = 0;
-	for (char a : logName) { // burdaki 13 sayısı değiştirlebilir. Kodun hızında değişiklik yapıcaktır asal sayı olursa unique değer bulma olasılığı daha fazla olucak 
-		hash = 13 * hash + a; // bu sayede collision daha hızlı engellenicek
+	for (char a : logName) {
+		hash = 13 * hash + a; 
 	}
 	return hash % HTable.size();
 }
 
 string hashT::read_logs(string linex) { // string return
 	int start, end;
-	start = linex.find("\"GET") + 5;
+	start = linex.find("GET ") + 4;
 	end = linex.find(" ", start);
 	return linex.substr(start, end - start);
 }
@@ -64,7 +68,7 @@ void hashT::insert() {
 		index = FirstHashIndex(pageName);
 		int probeIteration = 1;
 
-		while (HTable[index].first != pageName && !HTable[index].first.empty()) {  //eğer farklı string aynı index girerse bu o stringe boş olan bir index buluyor
+		while (HTable[index].first != pageName && !HTable[index].first.empty()) { 
 			index = quadProb(index, probeIteration);
 			probeIteration++;
 		}
@@ -75,12 +79,9 @@ void hashT::insert() {
 	}
 }
 
-void hashT::printTopTen() { //gpt den aldım değiştirelim yapabiliyorsak
+void hashT::print() {
 	sort(HTable.begin(), HTable.end(), [](pair<string, int>& a, pair<string, int>& b) {
 		return a.second > b.second;
-		});
-	cout << "Top 10 elements:" << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << "String: " << HTable[i].first << " Count: " << HTable[i].second << endl;
-	}
+	});
+
 }
