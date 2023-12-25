@@ -20,15 +20,12 @@ public:
 	string read_logs(string linex);
 	void insert();
 	void print();
-	vector<pair<string, int>> HTable;
 private:
+	vector<pair<string, int>> HTable;
 	ifstream logfile;
 };
 
 hashT::hashT(int size) : logfile("access_log") { // constructor
-	if(size < 13000){
-		size = 30013;
-	}
 	array_size = size;
 	HTable.resize(array_size);
 }
@@ -38,8 +35,8 @@ hashT::hashT() : logfile("access_log") {
 	HTable.resize(array_size);
 }
 
-int hashT::FirstHashIndex(const string& logName) { 
-	size_t hash = 0;
+int hashT::FirstHashIndex(const string& logName) {
+	int hash = 0;
 	for (char a : logName) {
 		hash = 13 * hash + a; 
 	}
@@ -59,8 +56,8 @@ int hashT::quadProb(size_t indexX, int probIteration) { // quadratic probing le 
 
 void hashT::insert() {
 	string line;
-	int index;
-
+	int index, logCount = 0;
+	
 	assert(logfile.is_open());
 
 	while (getline(logfile, line)) {
@@ -74,14 +71,24 @@ void hashT::insert() {
 		}
 		if (HTable[index].first != pageName && HTable[index].first.empty()) {
 			HTable[index].first = pageName;
+			logCount++;
+		}
+		if(logCount == HTable.size()){
+			cout << "Hash table filled up. These are the counts: " << endl;
+			cout << "Unique elements in the hash table: " << logCount << endl;
+			return;
 		}
 		HTable[index].second++;
 	}
+	cout << "Unique elements in the hash table: " << logCount << endl;
 }
 
 void hashT::print() {
 	sort(HTable.begin(), HTable.end(), [](pair<string, int>& a, pair<string, int>& b) {
 		return a.second > b.second;
 	});
-
+	cout << "Top 10 elements:" << endl;
+	for (int i = 0; i < 10; i++) {
+		cout << "String: " << HTable[i].first << " Count: " << HTable[i].second << endl;
+	}
 }
