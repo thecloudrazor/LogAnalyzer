@@ -1,4 +1,0 @@
-﻿  projedsaa.cpp
-D:\visualstudiocodes\projedsaa\projedsaa\projedsaa.cpp(15,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\visualstudiocodes\projedsaa\projedsaa\projedsaa.cpp(16,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  projedsaa.vcxproj -> D:\visualstudiocodes\projedsaa\x64\Debug\projedsaa.exe
